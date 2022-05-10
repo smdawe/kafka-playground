@@ -1,4 +1,4 @@
-package io.github.smdawe.kafkastreams;
+package io.github.smdawe.kafka.streams;
 
 import net.logstash.logback.marker.Markers;
 import org.apache.kafka.clients.producer.KafkaProducer;

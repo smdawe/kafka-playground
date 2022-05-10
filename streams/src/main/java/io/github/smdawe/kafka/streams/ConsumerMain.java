@@ -1,4 +1,4 @@
-package io.github.smdawe.kafkastreams;
+package io.github.smdawe.kafka.streams;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
