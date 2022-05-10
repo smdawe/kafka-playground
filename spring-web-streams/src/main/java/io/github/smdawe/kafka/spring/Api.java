@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 public class Api {
 
@@ -28,7 +30,7 @@ public class Api {
   @PostMapping(value = MESSAGE_ENDPOINT, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> message(@RequestBody MessageBody messageBody) {
     try {
-      kafkaTemplate.send(topic, messageBody.getValue());
+      kafkaTemplate.send(topic, UUID.randomUUID().toString(), messageBody.getValue());
       return new ResponseEntity<>(HttpStatus.CREATED);
     } catch (Throwable t) {
       return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

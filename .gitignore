@@ -1,4 +1,5 @@
 .gradle
 .idea
 build
-.DS_STORE
+.DS_Store
+spring-streams
