@@ -1,3 +1,4 @@
 kafka:
   bootstrapAddress: ${KAFKA_BOOTSTRAP_ADDRESS:http://localhost:29092}
   topic: test-topic
+  appId: spring-web-streams

@@ -23,5 +23,4 @@ public class MessageProcessor {
   public void pipeline(StreamsBuilder streamsBuilder){
     streamsBuilder.stream(topic, Consumed.with(STRING_SERDE, STRING_SERDE)).foreach(streamConsumer::consume);
   }
-
 }

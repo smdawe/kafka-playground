@@ -1,6 +1,6 @@
 package io.github.smdawe.kafka.spring.configuration
 
-import io.github.smdawe.envvar.extensions.WithEnvironmentVariables
+
 import io.github.smdawe.kafka.spring.KafkaSpecification
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest

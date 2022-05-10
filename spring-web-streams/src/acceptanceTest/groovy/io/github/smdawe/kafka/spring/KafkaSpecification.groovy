@@ -2,12 +2,10 @@ package io.github.smdawe.kafka.spring
 
 import io.github.smdawe.envvar.EnvironmentVariables
 import io.github.smdawe.envvar.extensions.WithEnvironmentVariables
-import org.spockframework.spring.SpringBean
 import org.testcontainers.containers.DockerComposeContainer
 import org.testcontainers.containers.wait.strategy.Wait
 import spock.lang.Shared
 import spock.lang.Specification
-import spock.util.concurrent.BlockingVariable
 
 @WithEnvironmentVariables
 class KafkaSpecification extends Specification {
