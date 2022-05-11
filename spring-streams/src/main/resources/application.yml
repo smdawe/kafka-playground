@@ -1,0 +1,5 @@
+kafka:
+  bootstrapAddress: ${KAFKA_BOOTSTRAP_ADDRESS:http://localhost:29092}
+  primaryTopic: primaryTopic
+  secondaryTopic: secondaryTopic
+  appId: spring-streams
