@@ -20,6 +20,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @SpringBootApplication
@@ -45,18 +46,22 @@ public class Main implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
     try {
-      for (int i = 0; i < 10; i++) {
-        String id = UUID.randomUUID().toString();
-        kafkaTemplate.send(primaryTopic, id, i + "a");
-        kafkaTemplate.send(secondaryTopic, id, i + "b");
+      String firstId = UUID.randomUUID().toString();
+      String id = null;
+      for (int i = 0; i < 100; i++) {
+        kafkaTemplate.send(primaryTopic, Optional.ofNullable(id).orElse(firstId), i + "a");
+        Thread.sleep(500);
+        id = UUID.randomUUID().toString();
       }
+
+      kafkaTemplate.send(secondaryTopic, firstId, "b");
 
     } catch (Throwable t) {
       LOG.error(t.getMessage(), t);
     }
   }
 
-  
+
   @Autowired
   public void primaryPipeline(StreamsBuilder streamsBuilder){
     streamsBuilder.stream(primaryTopic, Consumed.with(STRING_SERDE, STRING_SERDE)).foreach((a, b) -> consume(a, b, "primary"));
@@ -73,7 +78,7 @@ public class Main implements CommandLineRunner {
     ValueJoiner<String, String, String> joiner = (a, b) -> a + " - " + b;
 
     streamsBuilder.stream(primaryTopic, Consumed.with(STRING_SERDE, STRING_SERDE))
-      .join(joinStream, joiner, JoinWindows.of(Duration.ofSeconds(5)),
+      .join(joinStream, joiner, JoinWindows.of(Duration.ofSeconds(120)),
         StreamJoined.with(STRING_SERDE, STRING_SERDE, STRING_SERDE))
     .foreach((a, b) -> consume(a, b, "joined"));
   }
